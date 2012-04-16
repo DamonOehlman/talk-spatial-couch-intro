@@ -1,0 +1,39 @@
+{
+    "title": "Introduction to GeoCouch",
+    "template": "github://DamonOehlman/packing-instructions/deck.js",
+    "extras": [ "extension-hash", "theme-swiss" ],
+    
+    "sources": [
+        "files/intro.md",
+        "files/couchdb-getting-started.md",
+        "files/indexeddb.md"
+    ],
+    
+    "includes": {
+        "head": [
+            "css/pres.style.css"
+        ],
+        
+        "body": [
+            "js/pres.js"
+        ]
+    },
+    
+    "theme": "dark",
+    
+    "aliases": {
+        "deck": "github://imakewebthings/deck.js"
+    },
+    
+    "plugins": {
+        "code": {
+            "style": "zenburn"
+        }
+    },
+    
+    "resources": [
+        "css/pres.style.css <= resources/css/pres.style.css",
+        "js/pres.js <= resources/js/pres.js",
+        "js/jquery.min.js <= http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+    ]
+}
