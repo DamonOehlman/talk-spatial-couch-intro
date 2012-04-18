@@ -1,10 +1,9 @@
-# Getting Started with GeoCouch
+# CouchDB + Spatial = Awesome
 
 ----
 
 ## Overview
 
 - What is CouchDB?
-- Why CouchDB is awesome.
-- Why CouchDB __will impact__ spatial.
-- Let's talk GeoCouch
+- Why CouchDB relevant to GIS.
+- How to use CouchDB (and GeoCouch).

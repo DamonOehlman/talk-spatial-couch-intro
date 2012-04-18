@@ -1,5 +1,5 @@
 {
-  "name": "talk-html5-storage",
+  "name": "talk-intro-to-geocouch",
   "description": "This is a high level talk on HTML5 storage",
   "author": "Damon Oehlman <damon.oehlman@sidelab.com>",
   "tags": [ "html5" ],
@@ -13,10 +13,10 @@
 
   "repository": {
     "type": "git",
-    "url": "git://github.com/DamonOehlman/talk-html5-storage.git"
+    "url": "git://github.com/DamonOehlman/talk-intro-to-geocouch.git"
   },
   "bugs": {
-    "url": "http://github.com/DamonOehlman/talk-html5-storage/issues"
+    "url": "http://github.com/DamonOehlman/talk-intro-to-geocouch/issues"
   },
   
   "contributors": []

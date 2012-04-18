@@ -19,13 +19,27 @@
 
 ---
 
-## Getting Data into Couch
+## Simple GET
 
-Given you lot are spatial types, I'm going to recommend using GDAL, and in particular the `ogr2ogr` tool.
+[[code code/couch/sample-get.bash]]
 
-[[code code/ogr2ogr/import-shapefile.bash]]
+[[code code/couch/sample-get-output.js]]
 
-Credentials can be passed in using the `COUCHDB_USERPWD` environment variable:
+__NOTE:__ While this data has lat/lng data it is not in an ideal form, for GeoCouch to use.
 
-[[code code/ogr2ogr/userpass-env.bash]]
+---
 
+## Simple PUT
+
+New data can be added through use of the HTTP PUT method:
+
+[[code code/couch/sample-put.bash]]
+[[code code/couch/sample-put-output.js]]
+
+---
+
+## So much more
+
+- I consider CouchDB to be quite a deep product, that is easy to get started with but a while to master.
+
+- We will touch on other aspects of CouchDB as relevant to this talk.

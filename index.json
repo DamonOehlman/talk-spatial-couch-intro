@@ -5,8 +5,12 @@
     
     "sources": [
         "files/intro.md",
+        "files/what-is-couchdb.md",
         "files/couchdb-getting-started.md",
-        "files/indexeddb.md"
+        "files/couchdb-and-spatial.md",
+        "files/importing-data.md",
+        "files/geocouch.md",
+        "files/summary.md"
     ],
     
     "includes": {

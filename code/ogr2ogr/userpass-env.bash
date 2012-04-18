@@ -1,1 +1,1 @@
-COUCHDB_USERPWD=admin:yourpass ogr2ogr -f couchdb "couchdb:http://yourname.iriscouch.com/boundaries" sourcedata.shp -nln boundaries -overwrite
+COUCHDB_USERPWD=admin:yourpass ogr2ogr -f couchdb "couchdb:http://yourname.iriscouch.com/parking" sourcedata.shp -nln boundaries -overwrite

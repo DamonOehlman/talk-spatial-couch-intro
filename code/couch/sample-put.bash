@@ -1,0 +1,1 @@
+curl -X PUT http://sidelab.iriscouch.com/test/test -d '{"type":"Feature", "color":"orange" ,"geometry":{"type":"Point","coordinates":[11.395,48.949444]}}'
