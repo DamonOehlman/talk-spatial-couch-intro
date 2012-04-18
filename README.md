@@ -6,6 +6,16 @@ When I first started on the presentation I intended it be almost purely on the t
 
 If you have any feedback or questions, feel free to raise an issue :)
 
+## Demo
+
+A very rough demo related to the presentation is available online at the following location:
+
+<http://sidelab.iriscouch.com/parking/_design/spatial-demo/index.html>
+
+And the source is available here:
+
+<https://github.com/DamonOehlman/kanso-geocouch-demo>
+
 ## Building the Presentation
 
 This is a [deck.js](http://imakewebthings.com/deck.js/) presentation that has been put together with a tool I am working on called [boxit](https://github.com/DamonOehlman/boxit).  I find boxit really useful, and while there is still a lot to do on the project you could use this repo as a great starting point for writing your own presentation using boxit.
