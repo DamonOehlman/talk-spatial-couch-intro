@@ -38,6 +38,6 @@
     "resources": [
         "css/pres.style.css <= resources/css/pres.style.css",
         "js/pres.js <= resources/js/pres.js",
-        "js/jquery.min.js <= http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+        "js/jquery.min.js <= http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"
     ]
 }

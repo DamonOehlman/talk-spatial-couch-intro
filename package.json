@@ -1,7 +1,7 @@
 {
   "name": "talk-intro-to-geocouch",
   "description": "This is a high level talk on HTML5 storage",
-  "author": "Damon Oehlman <damon.oehlman@sidelab.com>",
+  "author": "Damon Oehlman <damon.oehlman@gmail.com>",
   "tags": [ "html5" ],
   "version": "0.0.1",
   "private": "true",
@@ -17,7 +17,5 @@
   },
   "bugs": {
     "url": "http://github.com/DamonOehlman/talk-intro-to-geocouch/issues"
-  },
-  
-  "contributors": []
+  }
 }

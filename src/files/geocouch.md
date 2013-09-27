@@ -40,4 +40,6 @@ There are a number of tool available to help with the process of deploying a Cou
 
 ---
 
-# Demo
+## Demo
+
+see: https://github.com/DamonOehlman/demo-kanso-geocouch

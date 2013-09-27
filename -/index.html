@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Introduction to GeoCouch</title>
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="css/pres.style.css" /><link rel="stylesheet" type="text/css" href="css/highlight.zenburn.css" /><script src="js/modernizr.custom.js"></script><link rel="stylesheet" type="text/css" href="css/deck.core.css" /><link rel="stylesheet" type="text/css" href="css/deck.hash.css" /><link rel="stylesheet" type="text/css" href="css/swiss.css" />
+</head>
+<body class="deck-container">
+<!-- use the handlebars each statement to create multiple content sections for the included files -->
+
+<section class="slide" >
+	<h1>CouchDB + Spatial = Awesome</h1>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>Overview</h2>
+<ul>
+<li>What is CouchDB?</li>
+<li>Why CouchDB relevant to GIS.</li>
+<li>How to use CouchDB (and GeoCouch).</li>
+</ul>
+
+
+
+</section>
+
+<section class="slide" >
+	<h1>What is CouchDB?</h1>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>A NoSQL document store</h2>
+<ul>
+<li>Data is stored as JSON fragments.</li>
+<li>Data can be collated and queried using views.</li>
+<li>I like to think of it as a distributed file system that actually works.</li>
+<li>And, it&#39;s also a webserver.</li>
+</ul>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>Where Does CouchDB fit?</h2>
+<ul>
+<li><p>I think the question is more, where doesn&#39;t it?</p>
+</li>
+<li><p>Suitable for:</p>
+<ul>
+<li>Small test applications</li>
+<li>Websites</li>
+<li>Distributed Data Stores</li>
+<li>Use it as a Distributed File System that works.</li>
+</ul>
+</li>
+</ul>
+
+
+
+</section>
+
+<section class="slide" >
+	<h1>Getting Started with CouchDB</h1>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>Not Installing CouchDB</h2>
+<ul>
+<li>By far the easiest way to get started with CouchDB, is to <strong>not</strong> install it.</li>
+<li>One of the best ways to do this is to use IrisCouch: <a href="http://www.iriscouch.com/">http://www.iriscouch.com/</a>.</li>
+<li>If you do need to install it, then I&#39;d recommend looking at <a href="http://refuge.io">http://refuge.io</a> - the guys there are doing some great work making the install easier.</li>
+</ul>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>Interacting with CouchDB</h2>
+<ul>
+<li>All interaction with CouchDB is done through a sensible, RESTful API.</li>
+<li>There are also many libraries for working with the API. </li>
+<li>My preference is for those which provide an interface as close to the actual HTTP API as possible.</li>
+<li>And, there is a pretty friendly web admin utility called Futon.</li>
+</ul>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>Simple GET</h2>
+<pre><code class="bash">curl http://sidelab.iriscouch.com/seattle_neighbourhood/c0d5867266787565c510f5a7e20000f2</pre></code>
+<pre><code class="javascript">{
+ "lat/lng": "47.612237, -122.290868",
+ "_id": "c0d5867266787565c510f5a7e20000f2",
+ "_rev": "3-3b75f0b5202e28c14de19addcc2b8d3d",
+ "Website": "http://www.seattleschools.org/schools/madrona/",
+ "Address": "1121 33rd Ave",
+ "Latitude": "47.612237",
+ "City Feature": "Alternative Schools",
+ "Longitude": "-122.290868",
+ "Common Name": "Madrona K-8"
+}</pre></code>
+<p><strong>NOTE:</strong> While this data has lat/lng data it is not in an ideal form, for GeoCouch to use.</p>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>Simple PUT</h2>
+<p>New data can be added through use of the HTTP PUT method:</p>
+<pre><code class="bash">curl -X PUT http://sidelab.iriscouch.com/test/test -d '{"type":"Feature", "color":"orange" ,"geometry":{"type":"Point","coordinates":[11.395,48.949444]}}'</pre></code>
+<pre><code class="javascript">{
+    "ok":true,
+    "id":"test",
+    "rev":"1-2eeb1e5eee6c8e7507b671aa7d5b0654"
+}</pre></code>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>So much more</h2>
+<ul>
+<li><p>I consider CouchDB to be quite a deep product, that is easy to get started with but a while to master.</p>
+</li>
+<li><p>We will touch on other aspects of CouchDB as relevant to this talk.</p>
+</li>
+</ul>
+
+
+
+</section>
+
+<section class="slide" >
+	<h1>CouchDB and Location Based Services</h1>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>Why?</h2>
+<p>From my personal observations, <strong>location based data</strong> (with particular reference to Point of Interest data) generally contains:</p>
+<ul>
+<li>Some core common attributes (title / name / etc)</li>
+<li>Some Geospatial information (be that points, lines, polygons, etc)</li>
+<li>And then a <strong>whole pile</strong> of custom attributes.</li>
+</ul>
+<p>Effectively storing these custom attributes in an RDBMS, is generally painful and ugly.</p>
+
+
+
+</section>
+
+<section class="slide" >
+	<h1>CouchDB offers an alternative</h1>
+
+
+
+</section>
+
+<section class="slide" >
+	<h1>And you&#39;ve got options!</h1>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>Option 1: Hybrid Stack</h2>
+<ul>
+<li>Involves separating* data into relevant stores:<ul>
+<li>Geospatial data should be extracted and placed in a traditional GIS.</li>
+<li>Extended attribute information should remain in Couch only.</li>
+</ul>
+</li>
+</ul>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>Hybrid Stack Pros &amp; Cons</h2>
+<h3>PROS</h3>
+<ul>
+<li>Access to more complicated geospatial operations through familiar tool.</li>
+</ul>
+<h3>CONS</h3>
+<ul>
+<li>Have to ensure mechanisms are in place to keep data in sync.</li>
+</ul>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>Options 2: Pure Couch</h2>
+<ul>
+<li>All data remains in CouchDB (as it does in Option 1)</li>
+<li>GeoSpatial data is indexed within Couch, courtesy of GeoCouch.</li>
+</ul>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>Pure Couch Pros &amp; Cons</h2>
+<h3>PROS</h3>
+<ul>
+<li>Highly self contained, with options of deployment to mobile</li>
+</ul>
+<h3>CONS</h3>
+<ul>
+<li>Limited Geospatial operations available</li>
+<li>Geospatial operation speed</li>
+<li>Data size - see Todd Jackson&#39;s <a href="http://boomphisto.blogspot.com.au/2011/10/serving-up-geojson-while-having-rest-on.html">post</a>.</li>
+</ul>
+
+
+
+</section>
+
+<section class="slide" >
+	<h1>Importing Data</h1>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>Many Options</h2>
+<ul>
+<li><p>Scripting and interaction with the HTTP API.</p>
+<p>  <em>Check out <a href="https://twitter.com/#!/stoolrossa">Todd Jackson</a>&#39;s post at:</em></p>
+<p>  <em><a href="http://boomphisto.blogspot.com.au/2011/10/serving-up-geojson-while-having-rest-on.html">http://boomphisto.blogspot.com.au/2011/10/serving-up-geojson-while-having-rest-on.html</a></em></p>
+</li>
+<li><p>Tools such as <code>shp2geocouch</code> (ruby): <a href="https://github.com/maxogden/shp2geocouch">https://github.com/maxogden/shp2geocouch</a> (<em>Not sure if this is still activately maintained</em>).</p>
+</li>
+<li><p>GDAL &gt;= 1.9.0 support for CouchDB</p>
+</li>
+</ul>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>GDAL Example</h2>
+<p>Given you lot are spatial types, I&#39;m going to recommend using GDAL (&gt;= 1.9.0), and in particular the <code>ogr2ogr</code> tool.</p>
+<pre><code class="bash">ogr2ogr -f couchdb "couchdb:http://yourname.iriscouch.com/parking" sourcedata.shp -nln boundaries -overwrite</pre></code>
+<p>Credentials can be passed in using the <code>COUCHDB_USERPWD</code> environment variable:</p>
+<pre><code class="bash">COUCHDB_USERPWD=admin:yourpass ogr2ogr -f couchdb "couchdb:http://yourname.iriscouch.com/parking" sourcedata.shp -nln boundaries -overwrite</pre></code>
+<p>More info: <a href="http://www.gdal.org/ogr/drv_couchdb.html">http://www.gdal.org/ogr/drv_couchdb.html</a></p>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>NOTE: Use the HTTP API for Updates!</h2>
+<ul>
+<li>Performing full imports using the either the <code>shp2geocouch</code> or <code>ogr2ogr</code> tools would not be encouraged in a production situation, as it will impact CouchDB replication and the <code>_changes</code> feed.</li>
+</ul>
+
+
+
+</section>
+
+<section class="slide" >
+	<h1>GeoCouch</h1>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>What is GeoCouch</h2>
+<ul>
+<li><p>GeoCouch (see <a href="https://github.com/couchbase/geocouch">https://github.com/couchbase/geocouch</a>) is a set of spatial extensions for CouchDB.</p>
+</li>
+<li><p>Given CouchDB&#39;s capabilities as a webserver this opens up opportunities for much lighter weight, but still very capable geospatial web apps.</p>
+</li>
+<li><p>Checkout a great talk from <a href="http://twitter.com/vmx">Volker Mische</a>, GeoCouch&#39;s creator here: <a href="http://www.couchbase.com/slides/geocouch/CCSF">http://www.couchbase.com/slides/geocouch/CCSF</a></p>
+</li>
+</ul>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>Using GeoCouch</h2>
+<ul>
+<li><p>The simplest way to get started with GeoCouch is through using a free couch instance at <a href="http://iriscouch.com/">http://iriscouch.com/</a>.</p>
+</li>
+<li><p>Uploading design docs into CouchDB is the hardest part.</p>
+<p>  <em>This generally true of CouchDB, but CouchApps can help</em></p>
+</li>
+</ul>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>Using GeoCouch - Writing a CouchApp</h2>
+<ul>
+<li><p>Some clever individuals came up with the concept of a CouchApp (see <a href="http://couchapp.org/">http://couchapp.org/</a>).</p>
+</li>
+<li><p>Writing a CouchApp means you are deploying both your application and data into couch, and serving it using the internal webserver.</p>
+</li>
+</ul>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>CouchApp Uploaders</h2>
+<p>There are a number of tool available to help with the process of deploying a CouchApp into a CouchDB instance (including <a href="http://iriscouch.com/">IrisCouch</a>, <a href="http://cloudant.com">CloudAnt</a>, etc):</p>
+<ul>
+<li>CouchApp (Python): <a href="https://github.com/couchapp/couchapp">https://github.com/couchapp/couchapp</a></li>
+<li>CouchApp (Node.js): <a href="https://github.com/mikeal/node.couchapp.js">https://github.com/mikeal/node.couchapp.js</a></li>
+<li>Kanso (Node.js): <a href="http://kan.so/">http://kan.so/</a></li>
+</ul>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>Demo</h2>
+<p>see: <a href="https://github.com/DamonOehlman/demo-kanso-geocouch">https://github.com/DamonOehlman/demo-kanso-geocouch</a></p>
+
+
+
+</section>
+
+<section class="slide" >
+	<h2>Summary</h2>
+<ul>
+<li>You <strong>should</strong> investigate CouchDB.  Sooner rather than later.</li>
+<li>While not designed as a GIS platform, it does have a place I believe.</li>
+<li>GeoCouch has a way to go yet, but it&#39;s worth keeping an eye on.</li>
+</ul>
+
+
+
+</section>
+
+<section class="slide" >
+	<h1>Questions?</h1>
+
+
+
+</section>
+
+<section class="slide" >
+	
+
+
+</section>
+
+<script src="js/pres.js"></script><script src="js/highlight.js"></script><script>hljs.initHighlightingOnLoad();</script><script src="js/jquery.min.js"></script><script src="js/deck.core.js"></script><script src="js/deck.hash.js"></script>
+<script>
+	$(function() {
+		$.deck('.slide');
+	});
+</script>
+</body>
+</html>
