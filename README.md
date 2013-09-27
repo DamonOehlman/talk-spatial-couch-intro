@@ -14,7 +14,7 @@ A very rough demo related to the presentation is available online at the followi
 
 And the source is available here:
 
-<https://github.com/DamonOehlman/kanso-geocouch-demo>
+<https://github.com/DamonOehlman/demo-kanso-geocouch>
 
 ## Building the Presentation
 
